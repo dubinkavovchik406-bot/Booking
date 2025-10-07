@@ -14,3 +14,14 @@ class Customer(models.Model):
         verbose_name_plural = "Customers"
         ordering = ["name"]
 
+class Room(models.Model):
+    number = models.IntegerField()
+    price = models.IntegerField()
+
+    def __str__(self):
+        return f"Room {self.number}"
+
+    class Meta:
+        verbose_name = "Room"
+        verbose_name_plural = "Rooms"
+        ordering = ["number"]
