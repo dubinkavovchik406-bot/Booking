@@ -25,3 +25,19 @@ class Room(models.Model):
         verbose_name = "Room"
         verbose_name_plural = "Rooms"
         ordering = ["number"]
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="orders")
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="orders")
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    creations_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.customer.name} {self.customer.surname} in {self.room.number} room"
+
+    class Meta:
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
+        ordering = ["creations_time"]
