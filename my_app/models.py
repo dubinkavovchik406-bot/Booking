@@ -19,7 +19,7 @@ class Room(models.Model):
     price = models.IntegerField()
 
     def __str__(self):
-        return f"Room {self.number}"
+        return f"Room #{self.number}"
 
     class Meta:
         verbose_name = "Room"
@@ -35,7 +35,7 @@ class Order(models.Model):
     creations_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.customer.name} {self.customer.surname} in {self.room.number} room"
+        return f"{self.customer.name} {self.customer.surname} in Room #{self.room.number}"
 
     class Meta:
         verbose_name = "Order"
