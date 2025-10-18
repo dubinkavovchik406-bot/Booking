@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+		{% for room in rooms %}
+		<p>
+		Room number: {{ room.number }} - <a href="{% url 'room-detail' room.id %}">View Room detail</a>
+		</p>
+		<p>
+		
+		</p>
+  	{% endfor %}
+		<br>
+		<p>
+				<a href="{% url 'home-page' %}">Back to main page</a>
+		</p>
+</div>
+<div>
+		
+</div>
+{% endblock %}
