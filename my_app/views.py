@@ -20,3 +20,13 @@ def rooms_list(request):
     return render(
         request=request, template_name="booking/rooms-list.html", context=context
     )
+
+def room_detail(request, r_id):
+    room = Room.objects.get(id=r_id)
+    context = {
+        "room": room
+    }
+
+    return render(
+        request=request, template_name="booking/room-detail.html", context=context
+    )
