@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="{% url 'order-form' room_id %}">
+  {% csrf_token %}
+  <label for="customer-id">Customer id:</label>
+  <input type="text" id="customer-id" name="customer-id">
+  <br>
+  <label for="start-time">Start time:</label>
+  <input type="datetime-local" id="start-time" name="start-time">
+  <br>
+  <label for="end-time">End time:</label>
+  <input type="datetime-local" id="end-time" name="end-time">
+  <br>
+  <button type="submit">Order this room</button>
+  <br>
+  <br>
+  <a href="{% url 'rooms-list' %}"></a>
+</form>
+{% endblock %}
