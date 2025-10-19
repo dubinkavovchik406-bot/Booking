@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+	<p>
+		{{ render_string }}
+	</p>
+	<a href="{% url 'rooms-list' %}">View all rooms</a>
+</div>
+{% endblock %}

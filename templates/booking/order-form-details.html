@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Order #{{ order.id }}</h1>
+	<p>Customer: {{ order.customer }}</p>
+	<p>Room: {{ order.room }}</p>
+	<p>Time range: {{ order.start_time }} - {{ order.end_time }}</p>
+	<br>
+	<a href="{% url 'home-page' %}">Back to home page</a>
+{% endblock %}
