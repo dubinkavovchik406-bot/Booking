@@ -65,3 +65,15 @@ def order_form(request, r_id):
         }
         return render(request=request, template_name="booking/order-form.html", context=context)
 
+def order_form_details(request, pk):
+    try:
+        order = get_object_or_404(Order, id=pk)
+        context = {
+            "order": order
+        }
+        return render(request=request, template_name="booking/order-form-details.html", context=context)
+    except Http404:
+        return HttpResponse(
+            "This order not found",
+            status=404
+        )
