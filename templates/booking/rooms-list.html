@@ -2,18 +2,23 @@
 
 {% block content %}
 <div>
-		{% for room in rooms %}
-		<p>
-		Room number: {{ room.number }} - <a href="{% url 'room-detail' room.id %}">View Room detail</a>
-		</p>
-		<p>
-		
-		</p>
-  	{% endfor %}
-		<br>
-		<p><a href="{% url 'home-page' %}">Back to home page</a></p>
+		<h1>All rooms</h1>
+		<hr>
 </div>
-<div>
-		
-</div>
+
+{% for data in rooms_data %}
+	<h3>Room # {{ data.room.number }}</h3>
+	<h6>Price: {{ data.room.price }}</h6>
+
+	{% if data.is_booked %}
+	<p style="color: red; font-weight: bold;">Booked (for future)</p>
+	{% else %}
+	<a href="{% url 'room-detail' data.room.id %}">Details / Order this room</a>
+	{% endif %}
+
+	<hr>
+	{% empty %}
+	<p>There are currently no available rooms.</p>
+{% endfor %}
+
 {% endblock %}

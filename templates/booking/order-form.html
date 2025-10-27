@@ -1,20 +1,28 @@
 {% extends "base.html" %}
-
 {% block content %}
+
+{% if error_message %}
+  <p style="color: red; border: 1px solid red; padding: 10px;">
+    Error: {{ error_message }}
+  </p>
+{% endif %}
+
 <form method="POST" action="{% url 'order-form' room_id %}">
   {% csrf_token %}
-  <label for="customer-id">Customer id:</label>
-  <input type="text" id="customer-id" name="customer-id">
+  <label for="customer-email">Customer email:</label>
+  <input type="text" id="customer-email" name="customer-email" value="{{ customer_email|default:'' }}">
   <br>
   <label for="start-time">Start time:</label>
-  <input type="datetime-local" id="start-time" name="start-time">
+  <input type="date" id="start-time" name="start-time" value="{{ start_time|default:'' }}">
   <br>
   <label for="end-time">End time:</label>
-  <input type="datetime-local" id="end-time" name="end-time">
+  <input type="date" id="end-time" name="end-time" value="{{ end_time|default:'' }}">
   <br>
   <button type="submit">Order this room</button>
-  <br>
-  <br>
-  <a href="{% url 'rooms-list' %}"></a>
 </form>
+
+<br>
+<br>
+<a href="{% url 'rooms-list' %}">Back to rooms list page</a>
+
 {% endblock %}
