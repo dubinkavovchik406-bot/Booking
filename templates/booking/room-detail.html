@@ -2,9 +2,20 @@
 
 {% block content %}
 
-<p>Room price: {{ room.price }}</p>
-<br>
-<p><a href="{% url 'order-form' room.id %}">Order this room</a></p>
-<p><a href="{% url 'rooms-list' %}">Back to rooms list page</a></p>
+    <h1 class="mb-4">Room #{{ room.number }} Details</h1>
+
+    <ul class="list-group list-group-flush mb-4 shadow-sm bg-white">
+        <li class="list-group-item"><strong>Type:</strong> {{ room.room_type }}</li>
+        <li class="list-group-item"><strong>Price:</strong> ${{ room.price }} / night</li>
+        <li class="list-group-item"><strong>Capacity:</strong> {{ room.capacity }} guests</li>
+        <li class="list-group-item"><strong>Square:</strong> {{ room.square }} sq.m</li>
+        <li class="list-group-item"><strong>Description:</strong> <br>{{ room.description }}</li>
+    </ul>
+
+    <a href="{% url 'order-form' room.id %}" class="btn btn-dark btn-lg mb-3">
+        Order this room
+    </a>
+
+<p><a href="{% url 'rooms-list' %}" class="btn btn-link ">← Back to rooms list</a></p>
 
 {% endblock %}
