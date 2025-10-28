@@ -1,8 +1,18 @@
-body {
-  background: linear-gradient(135deg, #b3e5fc 0%, #e1eaf3 100%);
-  color: #333;
-}
-html, body {
+html {
+  background: linear-gradient(135deg, #e0f7fa 0%, #ffe0b2 100%);
+  background-attachment: fixed;
   height: 100%;
   margin: 0;
+}
+
+body {
+  color: #333;
+  font-family: 'Inter', sans-serif;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
 }
