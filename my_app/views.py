@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, Http404
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -7,7 +6,7 @@ from my_app.models import Customer, Room, Order
 
 def home_page(request):
     context = {
-        "render_string": "This is home page. Hello!!"
+        "render_string": "This is home page"
     }
 
     return render(
@@ -22,7 +21,11 @@ def rooms_list(request):
 
     rooms_data = []
     for room in rooms:
-        is_booked = Order.objects.filter(room=room,end_time__gte=today).exists()
+        is_booked = Order.objects.filter(
+            room=room,
+            start_time__lte=today,
+            end_time__gte=today
+        ).exists()
 
         rooms_data.append({
             'room': room,
@@ -39,8 +42,10 @@ def rooms_list(request):
 
 def room_detail(request, r_id):
     room = get_object_or_404(Room, id=r_id)
+
     context = {
-        "room": room
+        "room": room,
+        "room_id_for_url": r_id,
     }
 
     return render(
@@ -58,20 +63,30 @@ def order_form(request, r_id):
         start_time = request.POST.get("start-time")
         end_time = request.POST.get("end-time")
 
+        today = timezone.now().date().isoformat()
+
         try:
             customer = Customer.objects.get(email__iexact=customer_email)
 
         except Customer.DoesNotExist:
-            error_message = "Customer email Doesn't exist"
+            error_message = ("Customer email Doesn't exist! / "
+                             "Адрес электронной почты клиента не существует!")
         except ValueError:
-            error_message = "Wrong value for customer email!"
+            error_message = ("Wrong value for customer email! / "
+                             "Неверное значение адреса электронной почты клиента!")
 
         if customer and not error_message:
             if not start_time or not end_time:
-                error_message = "Пожалуйста, выберите дату начала и дату окончания."
+                error_message = ("Please select a start date and end date! / "
+                                 "Пожалуйста, выберите дату начала и дату окончания!")
+
+            elif start_time < today:
+                error_message = ("The start date cannot be in the past! / "
+                                 "Дата начала не может быть в прошлом!")
 
             elif start_time >= end_time:
-                error_message = "Дата окончания не может быть раньше или равна дате начала."
+                error_message = ("The end date cannot be earlier than or equal to the start date! / "
+                                 "Дата окончания не может быть раньше или равна дате начала!")
 
             if not error_message:
                 conflicting_orders = Order.objects.filter(
@@ -81,8 +96,8 @@ def order_form(request, r_id):
                 ).exists()
 
                 if conflicting_orders:
-                    error_message = "Выбранный период недоступен. Он пересекается с существующей бронью."
-
+                    error_message = ("The selected period is not available. It overlaps with an opposite reservation / "
+                                     "Выбранный период недоступен. Он пересекается с существующей бронью")
             if not error_message:
                 try:
                     order = Order.objects.create(
@@ -94,32 +109,29 @@ def order_form(request, r_id):
                     return redirect("order-form-details", pk=order.id)
 
                 except ValidationError:
-                    error_message = "Wrong value for time!"
+                    error_message = ("Wrong value for time! / "
+                                     "Неправильное значение времени!")
 
         context = {
-            'room_id': r_id,
-            'error_message': error_message,
-            'customer_email': customer_email,
-            'start_time': start_time,
-            'end_time': end_time,
+            "room_id": r_id,
+            "room": room,
+            "error_message": error_message,
+            "customer_email": customer_email,
+            "start_time": start_time,
+            "end_time": end_time,
         }
-        return render(request=request, template_name="booking/order-form.html", context=context)
-
     else:
         context = {
-            'room_id': r_id
+            "room_id": r_id,
+            "room": room,
         }
-        return render(request=request, template_name="booking/order-form.html", context=context)
+    return render(request=request, template_name="booking/order-form.html", context=context)
 
 def order_form_details(request, pk):
-    try:
-        order = get_object_or_404(Order, id=pk)
-        context = {
-            "order": order
-        }
-        return render(request=request, template_name="booking/order-form-details.html", context=context)
-    except Http404:
-        return HttpResponse(
-            "This order not found",
-            status=404
-        )
+    order = get_object_or_404(Order, id=pk)
+
+    context = {
+        "order": order
+    }
+
+    return render(request=request, template_name="booking/order-form-details.html", context=context)
