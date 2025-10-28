@@ -1,19 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-		{% for room in rooms %}
-		<p>
-		Room number: {{ room.number }} - <a href="{% url 'room-detail' room.id %}">View Room detail</a>
-		</p>
-		<p>
-		
-		</p>
-  	{% endfor %}
-		<br>
-		<p><a href="{% url 'home-page' %}">Back to home page</a></p>
-</div>
-<div>
-		
-</div>
+
+<h1 class="mb-4">All Rooms Available</h1>
+
+{% for data in rooms_data %}
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Room # {{ data.room.number }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Price: ${{ data.room.price }} / night</h6>
+
+            {% if data.is_booked %}
+            <p class="text-danger font-weight-bold">
+                <i class="fa fa-exclamation-triangle"></i> Booked (for now)
+            </p>
+            <a href="{% url 'room-detail' data.room.id %}" class="btn btn-outline-danger btn-sm">
+                Details / Order this room for future
+            </a>
+            {% else %}
+            <a href="{% url 'room-detail' data.room.id %}" class="btn btn-dark btn-sm">
+                Details / Order this room
+            </a>
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <div class="alert alert-info" role="alert">
+        There are currently no available rooms.
+    </div>
+{% endfor %}
+
 {% endblock %}

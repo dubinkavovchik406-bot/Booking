@@ -1,20 +1,40 @@
 {% extends "base.html" %}
-
 {% block content %}
-<form method="POST" action="{% url 'order-form' room_id %}">
+
+<h1 class="mb-4">Order Room #{{ room.number }}</h1>
+
+{% if error_message %}
+  <div class="alert alert-danger" role="alert">
+    Error: {{ error_message }}
+  </div>
+{% endif %}
+
+<form method="POST" action="{% url 'order-form' room_id %}" class="bg-white p-4 shadow-sm rounded">
   {% csrf_token %}
-  <label for="customer-id">Customer id:</label>
-  <input type="text" id="customer-id" name="customer-id">
-  <br>
-  <label for="start-time">Start time:</label>
-  <input type="datetime-local" id="start-time" name="start-time">
-  <br>
-  <label for="end-time">End time:</label>
-  <input type="datetime-local" id="end-time" name="end-time">
-  <br>
-  <button type="submit">Order this room</button>
-  <br>
-  <br>
-  <a href="{% url 'rooms-list' %}"></a>
+
+  <div class="form-group">
+    <label for="customer-email">Customer email:</label>
+    <input type="email" class="form-control" id="customer-email" name="customer-email"
+           value="{{ customer_email|default:'' }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="start-time">Start date:</label>
+    <input type="date" class="form-control" id="start-time" name="start-time"
+           value="{{ start_time|default:'' }}" required>
+  </div>
+
+  <div class="form-group">
+    <label for="end-time">End date:</label>
+    <input type="date" class="form-control" id="end-time" name="end-time"
+           value="{{ end_time|default:'' }}" required>
+  </div>
+
+  <button type="submit" class="btn btn-dark btn-lg mt-3">Order this room</button>
 </form>
+
+<p class="mt-4">
+    <a href="{% url 'rooms-list' %}" class="btn btn-link">← Back to rooms list</a>
+</p>
+
 {% endblock %}

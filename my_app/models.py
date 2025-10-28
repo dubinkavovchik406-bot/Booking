@@ -4,7 +4,7 @@ from django.db import models
 class Customer(models.Model):
     name = models.CharField(max_length=256)
     surname = models.CharField(max_length=256)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return f"Customer {self.name} {self.surname}"
@@ -17,6 +17,10 @@ class Customer(models.Model):
 class Room(models.Model):
     number = models.IntegerField()
     price = models.IntegerField()
+    capacity = models.IntegerField(default=2)
+    square = models.IntegerField(default=20)
+    room_type = models.CharField(max_length=256, default="standart")
+    description = models.TextField(default="")
 
     def __str__(self):
         return f"Room #{self.number}"
@@ -26,12 +30,11 @@ class Room(models.Model):
         verbose_name_plural = "Rooms"
         ordering = ["number"]
 
-
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="orders")
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="orders")
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateField()
+    end_time = models.DateField()
     creations_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h1>Order #{{ order.id }}</h1>
-	<p>Customer: {{ order.customer }}</p>
-	<p>Room: {{ order.room }}</p>
-	<p>Time range: {{ order.start_time }} - {{ order.end_time }}</p>
-	<br>
-	<a href="{% url 'home-page' %}">Back to home page</a>
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Success! Order #{{ order.id }} Created!</h4>
+        <p>Your booking details are below.</p>
+    </div>
+
+    <ul class="list-group mb-4 shadow-sm bg-white">
+        <li class="list-group-item"><strong>Customer:</strong> {{ order.customer }}</li>
+        <li class="list-group-item"><strong>Room:</strong> {{ order.room }}</li>
+        <li class="list-group-item"><strong>Time range:</strong> {{ order.start_time }} to {{ order.end_time }}</li>
+    </ul>
+
+	<a href="{% url 'home-page' %}" class="btn btn-link">← Back to home page</a>
 {% endblock %}
