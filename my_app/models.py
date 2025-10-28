@@ -17,6 +17,10 @@ class Customer(models.Model):
 class Room(models.Model):
     number = models.IntegerField()
     price = models.IntegerField()
+    capacity = models.IntegerField(default=2)
+    square = models.IntegerField(default=20)
+    room_type = models.CharField(max_length=256, default="standart")
+    description = models.TextField(default="")
 
     def __str__(self):
         return f"Room #{self.number}"
@@ -25,7 +29,6 @@ class Room(models.Model):
         verbose_name = "Room"
         verbose_name_plural = "Rooms"
         ordering = ["number"]
-templates/base.html, templates/booking/order-form.html, templates/booking/room-detail.html, templates/booking/rooms-list.html
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="orders")
