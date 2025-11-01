@@ -1,14 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %} {% block content %}
+<div class="text-center bg-white shadow-sm p-5 rounded mb-4">
 
-{% block content %}
-<div class="jumbotron text-center bg-white shadow-sm">
-  <h1 class="display-4">Welcome to the Booking System!</h1>
-  <p class="lead mt-3">
+  <h1 class="display-4">{% translate "Welcome to the Booking System" %}!</h1> <p class="lead mt-3">
    {{ render_string }}
   </p>
+
   <hr class="my-4">
-  <a class="btn btn-dark btn-lg" href="{% url 'rooms-list' %}" role="button">
-    View all rooms
-  </a>
+
+  <a class="btn btn-dark btn-lg mt-4" href="{% url 'rooms-list' %}" role="button">
+    {% translate "View all rooms" %} </a>
 </div>
 {% endblock %}

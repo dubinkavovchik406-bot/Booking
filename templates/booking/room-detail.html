@@ -1,21 +1,24 @@
 {% extends "base.html" %}
+{% load i18n %} {% block content %}
 
-{% block content %}
-
-    <h1 class="mb-4">Room #{{ room.number }} Details</h1>
+    <h1 class="mb-4">{% translate "Room" %} #{{ room.number }} {% translate "Details" %}</h1>
 
     <ul class="list-group list-group-flush mb-4 shadow-sm bg-white">
-        <li class="list-group-item"><strong>Type:</strong> {{ room.room_type }}</li>
-        <li class="list-group-item"><strong>Price:</strong> ${{ room.price }} / night</li>
-        <li class="list-group-item"><strong>Capacity:</strong> {{ room.capacity }} guests</li>
-        <li class="list-group-item"><strong>Square:</strong> {{ room.square }} sq.m</li>
-        <li class="list-group-item"><strong>Description:</strong> <br>{{ room.description }}</li>
+        <li class="list-group-item"><strong>{% translate "Type" %}:</strong> {{ room.room_type }}</li>
+
+        <li class="list-group-item"><strong>{% translate "Price" %}:</strong> ${{ room.price }} / {% translate "night" %}</li>
+
+        <li class="list-group-item"><strong>{% translate "Capacity" %}:</strong> {{ room.capacity }} {% translate "guests" %}</li>
+
+        <li class="list-group-item"><strong>{% translate "Square" %}:</strong> {{ room.square }} {% translate "sq.m" %}</li>
+
+        <li class="list-group-item"><strong>{% translate "Description" %}:</strong> <br>{{ room.description }}</li>
     </ul>
 
     <a href="{% url 'order-form' room.id %}" class="btn btn-dark btn-lg mb-3">
-        Order this room
+        {% translate "Order this room" %}
     </a>
 
-<p><a href="{% url 'rooms-list' %}" class="btn btn-link ">← Back to rooms list</a></p>
+<p><a href="{% url 'rooms-list' %}" class="btn btn-link ">← {% translate "Back to rooms list" %}</a></p>
 
 {% endblock %}

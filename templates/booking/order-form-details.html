@@ -1,16 +1,63 @@
 {% extends "base.html" %}
+{% load i18n %} {% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-{% block content %}
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Success! Order #{{ order.id }} Created!</h4>
-        <p>Your booking details are below.</p>
+            <div class="bg-white rounded shadow-sm mb-4 p-4 p-md-5">
+
+                <div class="p-3 mb-4 rounded border border-success bg-light text-success">
+                    <h1 class="h4 mb-1">
+                        {% translate "Booking Confirmed" %}!
+                    </h1>
+                    <p class="small mb-0">
+                        {% translate "Congratulations" %}, {{ order.user.first_name }} {{ order.user.last_name }}! {% translate "Your order has been placed" %}.
+                    </p>
+                </div>
+
+                <h3 class="h5 mt-4 mb-3 text-dark">{% translate "Your Order Details" %}:</h3>
+
+                <ul class="list-group list-group-flush mb-4">
+
+                    <li class="list-group-item px-0">
+                        {% translate "Order Number" %}: <span class="fs-5 text-dark"><b>{{ order.id }}</b></span>
+                    </li>
+
+                    <li class="list-group-item px-0">
+                        {% translate "Room" %}: <span><b>#{{ order.room.number }} ({{ order.room.room_type|capfirst }})</b></span>
+                    </li>
+
+                    <li class="list-group-item px-0">
+                        {% translate "Price per night" %}: <span><b>${{ order.room.price }}</b></span>
+                    </li>
+
+                    <li class="list-group-item px-0">
+                        {% translate "Check-in Date" %}: <span class="text-primary">{{ order.start_time|date:"d M Y" }}</span>
+                    </li>
+
+                    <li class="list-group-item px-0">
+                        {% translate "Check-out Date" %}: <span class="text-primary">{{ order.end_time|date:"d M Y" }}</span>
+                    </li>
+                </ul>
+
+                <hr class="my-4">
+
+                <div class="text-muted small mb-4">
+                    <p class="mb-1">
+                        {% translate "Guest" %}: {{ order.user.username }} ({{ order.user.first_name }} {{ order.user.last_name }})
+                    </p>
+                </div>
+
+                <p class="text-muted small">
+                    {% translate "The full confirmation and check-in details have been sent to your email" %}.
+                </p>
+
+                <a href="{% url 'home-page' %}" class="btn btn-dark btn-lg mt-3">
+                     {% translate "Back to Home" %}
+                </a>
+
+            </div>
+            </div>
+        </div>
     </div>
-
-    <ul class="list-group mb-4 shadow-sm bg-white">
-        <li class="list-group-item"><strong>Customer:</strong> {{ order.customer }}</li>
-        <li class="list-group-item"><strong>Room:</strong> {{ order.room }}</li>
-        <li class="list-group-item"><strong>Time range:</strong> {{ order.start_time }} to {{ order.end_time }}</li>
-    </ul>
-
-	<a href="{% url 'home-page' %}" class="btn btn-link">← Back to home page</a>
 {% endblock %}

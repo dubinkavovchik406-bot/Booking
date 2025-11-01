@@ -1,3 +1,5 @@
 .idea/
+my_venv/
+venv_linux/
 db.sqlite3
 *.pyc
