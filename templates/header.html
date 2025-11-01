@@ -1,8 +1,63 @@
-<nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'home-page' %}">
-        <h2>BOOKING SYSTEM</h2>
-    </a>
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand fs-4" href="{% url 'home-page' %}">BOOKING SYSTEM</a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-center">
+
+                <li class="nav-item me-3">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% with request.path|slice:"3:" as path_without_prefix %}
+                            <input name="next" type="hidden" value="{{ path_without_prefix }}">
+                        {% endwith %}
+
+                        <select name="language"
+                                onchange="this.form.submit()"
+                                class="form-select form-select-sm"
+                                style="width: auto; margin-top: 16px;">
+
+                            {% get_available_languages as LANGUAGES %}
+
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                    {{ lang_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{% translate "Hello" %}, {{ user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">{% translate "Logout" %}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">{% translate "Registration" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">{% translate "Login" %}</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
 </nav>
-<div class="container">
-    <hr class="mb-4">
-</div>

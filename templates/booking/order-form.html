@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block content %}
+{% load i18n %} {% block content %}
 
-<h1 class="mb-4">Order Room #{{ room.number }}</h1>
+<h1 class="mb-4">{% translate "Order Room" %} #{{ room.number }}</h1>
 
 {% if error_message %}
   <div class="alert alert-danger" role="alert">
-    Error: {{ error_message }}
+    {% translate "Error" %}: {{ error_message }}
   </div>
 {% endif %}
 
@@ -13,28 +13,22 @@
   {% csrf_token %}
 
   <div class="form-group">
-    <label for="customer-email">Customer email:</label>
-    <input type="email" class="form-control" id="customer-email" name="customer-email"
-           value="{{ customer_email|default:'' }}" required>
-  </div>
-
-  <div class="form-group">
-    <label for="start-time">Start date:</label>
+    <label for="start-time">{% translate "Start date" %}:</label>
     <input type="date" class="form-control" id="start-time" name="start-time"
            value="{{ start_time|default:'' }}" required>
   </div>
 
   <div class="form-group">
-    <label for="end-time">End date:</label>
+    <label for="end-time">{% translate "End date" %}:</label>
     <input type="date" class="form-control" id="end-time" name="end-time"
            value="{{ end_time|default:'' }}" required>
   </div>
 
-  <button type="submit" class="btn btn-dark btn-lg mt-3">Order this room</button>
+  <button type="submit" class="btn btn-dark btn-lg mt-3">{% translate "Order this room" %}</button>
 </form>
 
 <p class="mt-4">
-    <a href="{% url 'rooms-list' %}" class="btn btn-link">← Back to rooms list</a>
+    <a href="{% url 'rooms-list' %}" class="btn btn-link">← {% translate "Back to rooms list" %}</a>
 </p>
 
 {% endblock %}
