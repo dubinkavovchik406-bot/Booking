@@ -1,7 +1,7 @@
 # Booking
 EN
 If you want to run this project:
-1. Download project to your devace, using zip-file or link for project.
+1. Download project to your devace, using zip-file or link for project. / (if you use link) git clone https://github.com/dubinkavovchik406-bot/Booking.git
 2. Open this folder using your IDE
 3. Make for you, virtual environment: python -m venv venv
 4. Activate it: (on Windows) venv\Scripts\activate / (on Linux or macOS) source venv/bin/activate
@@ -10,7 +10,7 @@ If you want to run this project:
 
 RU
 Если вы хотите запустить этот проект:
-1. Загрузите проект на ваше устройство, используя ZIP-архив или ссылку на проект.
+1. Загрузите проект на ваше устройство, используя ZIP-архив или ссылку на проект / (в случае с ссылкой) git clone https://github.com/dubinkavovchik406-bot/Booking.git
 2. Откройте эту папку в вашей интегрированной среде разработки (IDE).
 3. Создайте для себя виртуальное окружение: python -m venv venv
 4. Активируйте его: (Для Windows) .\venv\Scripts\activate / (Для Linux или macOS) source venv/bin/activate
