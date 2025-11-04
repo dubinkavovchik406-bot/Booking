@@ -1,4 +1,9 @@
-# Booking
+<h1>Booking</h1>
+
+### Introduction
+The goal of this project is simple **Django** web site, about **Hotel Booking Aggregator**
+![Project Home Page](images/homepage.png)
+## How to install the project:
 EN
 If you want to run this project:
 1. Download project to your devace, using zip-file or link for project. / (if you use link) git clone https://github.com/dubinkavovchik406-bot/Booking.git
@@ -16,3 +21,4 @@ RU
 4. Активируйте его: (Для Windows) .\venv\Scripts\activate / (Для Linux или macOS) source venv/bin/activate
 5. Установите зависимости в вашем виртуальном окружении: pip install -r requirements.txt
 6. Запустите на вашем LocalHost: python manage.py runserver
+
