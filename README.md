@@ -2,13 +2,16 @@
 
 ### Introduction
 The goal of this project is simple **Django** web site, about **Hotel Booking Aggregator**
-![Project Home Page](images/homepage.png)
-In this Project you can:
+
+### In this Project you can:
 * Add some rooms, using **Django Admin Panel**.
 * Authenticate or Login **your profile** 
 * Add a lot of details to your room
 * Order room and add your order in DataBase
 * See details of your order
+### Some images from project site-page
+![Project Home Page](images/homepage.png)
+
 
 ## How to install the project:
 EN:
