@@ -11,7 +11,9 @@ The goal of this project is simple **Django** web site, about **Hotel Booking Ag
 * See details of your order
 ### Some images from project site-page
 ![Project Home Page](images/homepage.png)
-
+![Project Home Page](images/rooms-list.png)
+![Project Home Page](images/room-details.png)
+![Project Home Page](images/order-form-details.png)
 
 ## How to install the project:
 EN:
