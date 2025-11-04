@@ -3,6 +3,13 @@
 ### Introduction
 The goal of this project is simple **Django** web site, about **Hotel Booking Aggregator**
 ![Project Home Page](images/homepage.png)
+In this Project you can:
+* Add some rooms, using **Django Admin Panel**.
+* Authenticate or Login **your profile** 
+* Add a lot of details to your room
+* Order room and add your order in DataBase
+* See details of your order
+
 ## How to install the project:
 EN:
 1. Download project to your devace, using zip-file or link for project. / (if you use link) git clone https://github.com/dubinkavovchik406-bot/Booking.git
